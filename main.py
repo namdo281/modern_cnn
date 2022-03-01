@@ -31,7 +31,10 @@ for X, y in train_dataloader:
     print(y.shape)
     break
 
-model = AlexNet().to(device)
+# model = AlexNet().to(device)
+
+conv_arch = ((1, 16), (1, 32), (2, 64), (2, 128), (2, 128))
+model = VGGNet(conv_arch=conv_arch).to(device)
 
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr = 1e-2)
