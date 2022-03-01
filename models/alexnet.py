@@ -79,7 +79,7 @@ class AlexNet(nn.Module):
         x = self.dropout2(x)
         x = self.linear3(x)
         #print(x.shape)
-        output = F.softmax(x)
+        output = F.log_softmax(x)
         #print(output.shape)
         return output
 

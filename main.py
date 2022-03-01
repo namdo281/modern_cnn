@@ -34,11 +34,11 @@ for X, y in train_dataloader:
 model = AlexNet().to(device)
 
 loss_fn = nn.CrossEntropyLoss()
-optimizer = torch.optim.SGD(model.parameters(), lr = 1e-3)
+optimizer = torch.optim.SGD(model.parameters(), lr = 1e-2)
 
 print(model)
 epochs = 10
 for t in range(epochs):
-    print("epoch {t+1}")
+    print(f"epoch {t+1}")
     train(train_dataloader, model, loss_fn, optimizer, device)
     test(test_dataloader, model, loss_fn, device)
