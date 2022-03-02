@@ -37,7 +37,8 @@ for i, (X, y) in enumerate(train_dataloader):
 # conv_arch = ((1, 16), (1, 32), (2, 64), (2, 128), (2, 128))
 # model = VGGNet(conv_arch=conv_arch).to(device)
 
-model = GoogLeNet()
+model = ResNet()
+model.to(device)
 
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr = 1e-4)
