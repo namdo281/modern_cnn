@@ -1,5 +1,5 @@
 import torch
-def train(data_loader, model, loss_fn, optimizer, device, print_after = 10):
+def train(data_loader, model, loss_fn, optimizer, device, print_after = 100):
     size = len(data_loader.dataset)
     model.train()
     for batch, (X,y) in enumerate(data_loader):

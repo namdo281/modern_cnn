@@ -31,7 +31,8 @@ class ResidualBlock(nn.Module):
                 )
             convs.append(conv)
             convs.append(nn.BatchNorm2d(out_channels))
-            convs.append(nn.ReLU())
+            if i != num_conv -1:
+                convs.append(nn.ReLU())
         self.convs = nn.Sequential(*convs)
         if self.use_id_conv:
             self.id_conv = nn.Conv2d(
@@ -48,7 +49,7 @@ class ResidualBlock(nn.Module):
             x2 = x
         # print(x1.shape)
         # print(x2.shape)
-        return x1+x2
+        return F.relu(x1+x2)
 
 
 
@@ -56,6 +57,7 @@ class ResNet(nn.Module):
     def __init__(self):
         super().__init__()
         self.conv1 = nn.Conv2d(1, 64, 7, stride = 2 , padding= 3 )
+        self.bn = nn.BatchNorm2d(64)
         self.residual1 = ResidualBlock(64, 64, 2)
         self.residual2 = ResidualBlock(64, 128, 2)
         self.residual3 = ResidualBlock(128, 256, 2)
@@ -66,6 +68,8 @@ class ResNet(nn.Module):
         self.dropout = nn.Dropout()
     def forward(self, x):
         x = self.conv1(x)
+        x = self.bn(x)
+        x = F.relu(x)
         # print(x.shape)
         x = self.residual1(x)
         # print(x.shape)

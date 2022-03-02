@@ -37,18 +37,18 @@ for i, (X, y) in enumerate(train_dataloader):
 # conv_arch = ((1, 16), (1, 32), (2, 64), (2, 128), (2, 128))
 # model = VGGNet(conv_arch=conv_arch).to(device)
 
-model = ResNet()
+model = DenseNet(32)
 model.to(device)
 
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr = 1e-4)
 
 
-# x = torch.randn((64, 1, 224, 224))
-# model.forward(x)
+x = torch.randn((64, 1, 224, 224))
+model.forward(x)
 print(model)
-epochs = 10
-for t in range(epochs):
-    print(f"epoch {t+1}")
-    train(train_dataloader, model, loss_fn, optimizer, device)
-    test(test_dataloader, model, loss_fn, device)
+# epochs = 10
+# for t in range(epochs):
+#     print(f"epoch {t+1}")
+#     train(train_dataloader, model, loss_fn, optimizer, device)
+#     test(test_dataloader, model, loss_fn, device)
