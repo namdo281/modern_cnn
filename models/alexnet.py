@@ -1,11 +1,9 @@
 import torch
 from torch import nn
 import torch.nn.functional as F
-from torchvision.transforms import Resize
 class AlexNet(nn.Module):
     def __init__ (self):
         super().__init__()
-        self.resizor = Resize(224)
         self.conv1 = nn.Conv2d(
             in_channels= 1,
             out_channels=96,
@@ -57,7 +55,6 @@ class AlexNet(nn.Module):
         self.linear3 = nn.Linear(256, 10)
     def forward(self, x):
         #print(x.shape)
-        x = self.resizor(x)
         #print(x.shape)
         x = self.conv1(x)
         x = F.relu(x)
@@ -74,8 +71,10 @@ class AlexNet(nn.Module):
         x = self.pool3(x)
         x = self.flatten(x)
         x = self.linear1(x)
+        x = F.relu(x)
         x = self.dropout1(x)
         x = self.linear2(x)
+        x = F.relu(x)
         x = self.dropout2(x)
         x = self.linear3(x)
         #print(x.shape)
