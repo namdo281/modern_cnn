@@ -85,6 +85,7 @@ class ResNet(nn.Module):
         x = self.linear(x)
         x = self.dropout(x)
         x = F.relu(x)
+        x = F.log_softmax(x, dim=1)
         return x
 
 

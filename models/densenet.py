@@ -80,7 +80,7 @@ class DenseNet(nn.Module):
 
         self.pool2 = nn.AvgPool2d(kernel_size= 7)
         self.flatten = nn.Flatten()
-        self.linear = nn.Linear(700, 10)
+        self.linear = nn.Linear(262, 10)
         self.dropout = nn.Dropout()
 
     def forward(self, x):
@@ -109,4 +109,5 @@ class DenseNet(nn.Module):
         x = self.flatten(x)
         x = self.linear(x)
         x = self.dropout(x)
+        x = F.log_softmax(x, dim = 1)
         return x
